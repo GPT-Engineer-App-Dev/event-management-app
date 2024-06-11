@@ -1,5 +1,5 @@
-import { Container, VStack, Heading, Text, Button, Box, HStack, IconButton } from "@chakra-ui/react";
-import { FaCalendarPlus, FaCalendarAlt } from "react-icons/fa";
+import { Container, VStack, Heading, Text, Button, HStack } from "@chakra-ui/react";
+import { FaCalendarPlus, FaCalendarAlt, FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -14,6 +14,9 @@ const Index = () => {
           </Button>
           <Button leftIcon={<FaCalendarAlt />} colorScheme="blue" size="lg">
             View Events
+          </Button>
+          <Button as={Link} to="/update-event/1" leftIcon={<FaEdit />} colorScheme="yellow" size="lg">
+            Update Event
           </Button>
         </HStack>
       </VStack>
