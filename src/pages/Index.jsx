@@ -1,5 +1,5 @@
 import { Container, VStack, Heading, Text, Button, HStack } from "@chakra-ui/react";
-import { FaCalendarPlus, FaCalendarAlt, FaEdit, FaTrash, FaEye, FaBriefcase } from "react-icons/fa"; // Import the FaTrash icon and FaEye icon
+import { FaCalendarPlus, FaCalendarAlt, FaEdit, FaTrash, FaEye, FaBriefcase } from "react-icons/fa"; // Import the FaEdit icon
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -30,6 +30,9 @@ const Index = () => {
           <Button as={Link} to="/delete-job/1" leftIcon={<FaTrash />} colorScheme="red" size="lg">
             Delete Job
           </Button>
+          <Button as={Link} to="/edit-job/1" leftIcon={<FaEdit />} colorScheme="yellow" size="lg">
+            Edit Job
+          </Button> {/* Add the new button */}
         </HStack>
       </VStack>
     </Container>
