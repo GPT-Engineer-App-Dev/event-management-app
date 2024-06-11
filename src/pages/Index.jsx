@@ -1,6 +1,3 @@
-import { Container, VStack, Heading, Text, Button, HStack } from "@chakra-ui/react";
-import { FaCalendarPlus, FaCalendarAlt, FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { useSupabaseAuth } from "../integrations/supabase/auth.jsx"; // Import the useSupabaseAuth hook
 
 const Index = () => {
@@ -41,5 +38,3 @@ const Index = () => {
     </Container>
   );
 };
-
-export default Index;
