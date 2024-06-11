@@ -1,30 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Container, VStack, Heading, Text, Spinner, Box } from "@chakra-ui/react";
+import { useEvent } from "../integrations/supabase/index.js";
 
 const ViewEvent = () => {
   const { id } = useParams();
-  const [event, setEvent] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { data: event, isLoading } = useEvent(id);
 
-  useEffect(() => {
-    // Fetch event data by id
-    const fetchEvent = async () => {
-      // Placeholder for actual fetch logic
-      const fetchedEvent = {
-        id,
-        name: "Sample Event",
-        date: "2023-10-10",
-        description: "This is a sample event description."
-      };
-      setEvent(fetchedEvent);
-      setLoading(false);
-    };
-
-    fetchEvent();
-  }, [id]);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <Container centerContent maxW="container.md" py={8}>
         <Spinner size="xl" />
