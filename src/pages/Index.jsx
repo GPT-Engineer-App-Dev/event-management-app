@@ -1,8 +1,11 @@
 import { Container, VStack, Heading, Text, Button, HStack } from "@chakra-ui/react";
-import { FaCalendarPlus, FaCalendarAlt, FaEdit, FaTrash, FaEye, FaBriefcase } from "react-icons/fa"; // Import the FaTrash icon and FaEye icon
+import { FaCalendarPlus, FaCalendarAlt, FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSupabaseAuth } from "../integrations/supabase/auth.jsx"; // Import the useSupabaseAuth hook
 
 const Index = () => {
+  const { session, logout } = useSupabaseAuth(); // Use the hook to get session and logout
+
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={8}>
@@ -24,10 +27,16 @@ const Index = () => {
           <Button as={Link} to="/view-event/1" leftIcon={<FaEye />} colorScheme="green" size="lg">
             View Event
           </Button>
-          <Button as={Link} to="/create-job" leftIcon={<FaBriefcase />} colorScheme="purple" size="lg">
-            Create Job
-          </Button>
         </HStack>
+        {session ? (
+          <Button onClick={logout} colorScheme="red" size="lg">
+            Logout
+          </Button>
+        ) : (
+          <Button as={Link} to="/admin-login" colorScheme="blue" size="lg">
+            Admin Login
+          </Button>
+        )}
       </VStack>
     </Container>
   );
