@@ -27,6 +27,9 @@ const Index = () => {
           <Button as={Link} to="/create-job" leftIcon={<FaBriefcase />} colorScheme="purple" size="lg">
             Create Job
           </Button>
+          <Button as={Link} to="/delete-job/1" leftIcon={<FaTrash />} colorScheme="red" size="lg">
+            Delete Job
+          </Button>
         </HStack>
       </VStack>
     </Container>

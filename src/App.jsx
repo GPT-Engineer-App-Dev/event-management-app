@@ -5,6 +5,7 @@ import UpdateEvent from "./pages/UpdateEvent.jsx";
 import DeleteEvent from "./pages/DeleteEvent.jsx"; // Import the new DeleteEvent component
 import ViewEvent from "./pages/ViewEvent.jsx"; // Import the new ViewEvent component
 import CreateJob from "./pages/CreateJob.jsx"; // Import the new CreateJob component
+import DeleteJob from "./pages/DeleteJob.jsx"; // Import the new DeleteJob component
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/delete-event/:id" element={<DeleteEvent />} /> {/* Add the new route */}
       <Route path="/view-event/:id" element={<ViewEvent />} /> {/* Add the new route */}
       <Route path="/create-job" element={<CreateJob />} /> {/* Add the new route */}
+      <Route path="/delete-job/:id" element={<DeleteJob />} /> {/* Add the new route */}
       </Routes>
     </Router>
   );
