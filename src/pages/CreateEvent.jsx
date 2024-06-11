@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAddEvent } from "../integrations/supabase/index.js";
 import { Container, VStack, Heading, Input, Textarea, Button, useToast } from "@chakra-ui/react";
 
 const CreateEvent = () => {
@@ -7,15 +8,30 @@ const CreateEvent = () => {
   const [description, setDescription] = useState("");
   const toast = useToast();
 
+  const { mutate: addEvent } = useAddEvent();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save event logic here
-    toast({
-      title: "Event created.",
-      description: "Your event has been created successfully.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
+    const newEvent = { name, date, description };
+    addEvent(newEvent, {
+      onSuccess: () => {
+        toast({
+          title: "Event created.",
+          description: "Your event has been created successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      },
+      onError: (error) => {
+        toast({
+          title: "Error creating event.",
+          description: error.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      },
     });
   };
 

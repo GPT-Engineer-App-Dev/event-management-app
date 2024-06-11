@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, VStack, Heading, Input, Textarea, Button, useToast } from "@chakra-ui/react";
+import { Container, VStack, Heading, Input, Textarea, Button, useToast, Spinner } from "@chakra-ui/react";
+import { useEvent, useUpdateEvent } from "../integrations/supabase/index.js";
 
 const UpdateEvent = () => {
   const { id } = useParams();
@@ -10,35 +11,51 @@ const UpdateEvent = () => {
   const [description, setDescription] = useState("");
   const toast = useToast();
 
+  const { data: event, isLoading } = useEvent(id);
+
   useEffect(() => {
-    // Fetch event data by id and populate the state
-    // This is a placeholder for actual fetch logic
-    const fetchEvent = async () => {
-      const event = {
-        name: "Sample Event",
-        date: "2023-10-10",
-        description: "This is a sample event description."
-      };
+    if (event) {
       setName(event.name);
       setDate(event.date);
       setDescription(event.description);
-    };
+    }
+  }, [event]);
 
-    fetchEvent();
-  }, [id]);
+  const { mutate: updateEvent } = useUpdateEvent();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Update event logic here
-    toast({
-      title: "Event updated.",
-      description: "Your event has been updated successfully.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
+    const updatedEvent = { id, name, date, description };
+    updateEvent(updatedEvent, {
+      onSuccess: () => {
+        toast({
+          title: "Event updated.",
+          description: "Your event has been updated successfully.",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/");
+      },
+      onError: (error) => {
+        toast({
+          title: "Error updating event.",
+          description: error.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      },
     });
-    navigate("/");
   };
+
+  if (isLoading) {
+    return (
+      <Container centerContent maxW="container.md" py={8}>
+        <Spinner size="xl" />
+      </Container>
+    );
+  }
 
   return (
     <Container centerContent maxW="container.md" py={8}>
